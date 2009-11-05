@@ -53,6 +53,9 @@ module Webrat
 
     # Set the timeout for waiting for the browser process to start
     attr_accessor :selenium_browser_startup_timeout
+    
+    # Set the additional args for the rc server startup command
+    attr_accessor :selenium_additional_args
 
     # How many redirects to the same URL should be halted as an infinite redirect
     # loop? Defaults to 10
@@ -68,6 +71,7 @@ module Webrat
       self.infinite_redirect_limit = 10
       self.selenium_browser_key = '*firefox'
       self.selenium_browser_startup_timeout = 5
+      self.selenium_additional_args = []
     end
 
     def open_error_files? #:nodoc:
