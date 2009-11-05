@@ -36,6 +36,7 @@ module Webrat
                                                                        Webrat.configuration.selenium_server_port,
                                                                        :timeout => Webrat.configuration.selenium_browser_startup_timeout)
         @remote_control.jar_file = jar_path
+        @remote_control.additional_args = Webrat.configuration.selenium_additional_args
 
         return @remote_control
       end
