@@ -31,10 +31,13 @@ module Webrat
 
       def remote_control
         return @remote_control if @remote_control
+        server_options = { :timeout => Webrat.configuration.selenium_browser_startup_timeout }
+        server_options[:firefox_profile] = Webrat.configuration.selenium_firefox_profile if Webrat.configuration.selenium_firefox_profile
 
         @remote_control = ::Selenium::RemoteControl::RemoteControl.new("0.0.0.0",
                                                                        Webrat.configuration.selenium_server_port,
-                                                                       :timeout => Webrat.configuration.selenium_browser_startup_timeout)
+                                                                       server_options)
+
         @remote_control.jar_file = jar_path
         @remote_control.additional_args = Webrat.configuration.selenium_additional_args
 
@@ -62,7 +65,7 @@ module Webrat
           TCPSocket.wait_for_service_with_timeout \
             :host     => (Webrat.configuration.selenium_server_address || "0.0.0.0"),
             :port     => Webrat.configuration.selenium_server_port,
-            :timeout  => 15 # seconds
+            :timeout  => 45 # seconds
         end
       end
 
